@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1DAF4F521153F8B00CA0E06 /* libMWMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */; };
 		B1FE2B1D2114BCE000A1584B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */; };
 		B1FE2B1F2114BCE000A1584B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B1E2114BCE000A1584B /* ViewController.swift */; };
 		B1FE2B222114BCE000A1584B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1FE2B202114BCE000A1584B /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMWMSDK.a; sourceTree = "<group>"; };
 		B1FE2B192114BCE000A1584B /* MindWaveJournaler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindWaveJournaler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1FE2B1E2114BCE000A1584B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +51,11 @@
 		B1FE2B3B2114BCE100A1584B /* MindWaveJournalerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindWaveJournalerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FE2B3F2114BCE100A1584B /* MindWaveJournalerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindWaveJournalerUITests.swift; sourceTree = "<group>"; };
 		B1FE2B412114BCE100A1584B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1FE2B4F2114BDFF00A1584B /* MWMDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDevice.h; sourceTree = SOURCE_ROOT; };
+		B1FE2B502114BDFF00A1584B /* MWMEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEnum.h; sourceTree = SOURCE_ROOT; };
+		B1FE2B512114BDFF00A1584B /* MWMDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDelegate.h; sourceTree = SOURCE_ROOT; };
+		B1FE2B522114BE3900A1584B /* libMWMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMWMSDK.a; sourceTree = "<group>"; };
+		B1FE2B552114BF7300A1584B /* MindWaveJournaler-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MindWaveJournaler-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1DAF4F521153F8B00CA0E06 /* libMWMSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +87,12 @@
 		B1FE2B102114BCE000A1584B = {
 			isa = PBXGroup;
 			children = (
+				B1FE2B552114BF7300A1584B /* MindWaveJournaler-Bridging-Header.h */,
 				B1FE2B1B2114BCE000A1584B /* MindWaveJournaler */,
 				B1FE2B332114BCE000A1584B /* MindWaveJournalerTests */,
 				B1FE2B3E2114BCE100A1584B /* MindWaveJournalerUITests */,
 				B1FE2B1A2114BCE000A1584B /* Products */,
+				B1FE2B532114BE4200A1584B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +109,7 @@
 		B1FE2B1B2114BCE000A1584B /* MindWaveJournaler */ = {
 			isa = PBXGroup;
 			children = (
+				B1FE2B4E2114BDC900A1584B /* NeuroSkySDK */,
 				B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */,
 				B1FE2B1E2114BCE000A1584B /* ViewController.swift */,
 				B1FE2B202114BCE000A1584B /* Main.storyboard */,
@@ -126,6 +137,25 @@
 				B1FE2B412114BCE100A1584B /* Info.plist */,
 			);
 			path = MindWaveJournalerUITests;
+			sourceTree = "<group>";
+		};
+		B1FE2B4E2114BDC900A1584B /* NeuroSkySDK */ = {
+			isa = PBXGroup;
+			children = (
+				B1FE2B522114BE3900A1584B /* libMWMSDK.a */,
+				B1FE2B512114BDFF00A1584B /* MWMDelegate.h */,
+				B1FE2B4F2114BDFF00A1584B /* MWMDevice.h */,
+				B1FE2B502114BDFF00A1584B /* MWMEnum.h */,
+			);
+			path = NeuroSkySDK;
+			sourceTree = "<group>";
+		};
+		B1FE2B532114BE4200A1584B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,8 +471,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "honeysuckle-hardware.MindWaveJournaler";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/cthomasbrittain/Desktop/MindWaveJournaler/MindWaveJournaler-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -459,8 +494,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "honeysuckle-hardware.MindWaveJournaler";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/cthomasbrittain/Desktop/MindWaveJournaler/MindWaveJournaler-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
