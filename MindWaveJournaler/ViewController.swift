@@ -42,8 +42,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate {
         print("Device Name" + devName! + "\n" + "Manfacturer ID: " + mfgID! + "\n" + "Device ID: " + deviceID!)
         mindWaveDevice.stopScanDevice()
         mindWaveDevice.connect(deviceID!)
-//        mindWaveDevice.mwmBaudRate(256000, notchFilter: 0)
-        mindWaveDevice.enableConsoleLog(true)
+//        mindWaveDevice.mwmBaudRate(1, notchFilter: 0)
+        mindWaveDevice.delegate!.mwmBaudRate!(1, notchFilter: 0)
+//        mindWaveDevice.enableConsoleLog(true)
         mindWaveDevice.readConfig()
     }
     
@@ -56,7 +57,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate {
     }
     
     func eegBlink(_ blinkValue: Int32) {
-        print(blinkValue)
+//        print(blinkValue)
     }
     
     func eegSample(_ sample: Int32) {
@@ -64,25 +65,29 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate {
     }
     
     func eSense(_ poorSignal: Int32, attention: Int32, meditation: Int32) {
-        print(attention)
+//        print(attention)
     }
 
-    func eegPowerDelta(_ delta: Int32, theta: Int32, lowAlpha: Int32, highAlpha: Int32) {
-        print("Delta:      " + String(delta) + "\n",
-              "Theta:      " + String(theta) + "\n",
-              "Low Alpha:  " + String(lowAlpha) + "\n",
-              "High Alpha: " + String(highAlpha) + "\n"
-        )
-    }
+//    func eegPowerDelta(_ delta: Int32, theta: Int32, lowAlpha: Int32, highAlpha: Int32) {
+//        print("Delta:      " + String(delta) + "\n",
+//              "Theta:      " + String(theta) + "\n",
+//              "Low Alpha:  " + String(lowAlpha) + "\n",
+//              "High Alpha: " + String(highAlpha) + "\n"
+//        )
+//    }
+//
+//    func eegPowerLowBeta(_ lowBeta: Int32, highBeta: Int32, lowGamma: Int32, midGamma: Int32) {
+//        print("Low Beta:   " + String(lowBeta) + "\n",
+//              "High Beta:  " + String(highBeta) + "\n",
+//              "Low Gamma:  " + String(lowGamma) + "\n",
+//              "Mid Gamma:  " + String(midGamma) + "\n"
+//        )
+//    }
 
-    func eegPowerLowBeta(_ lowBeta: Int32, highBeta: Int32, lowGamma: Int32, midGamma: Int32) {
-        print("Low Beta:   " + String(lowBeta) + "\n",
-              "High Beta:  " + String(highBeta) + "\n",
-              "Low Gamma:  " + String(lowGamma) + "\n",
-              "Mid Gamma:  " + String(midGamma) + "\n"
-        )
+    func mwmBaudRate(_ baudRate: Int32, notchFilter: Int32) {
+        print(baudRate)
+        print(notchFilter)
     }
-
 
 }
 
