@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79A42F2B027091B62AA9D9B7 /* Pods_MindWaveJournalerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B94A1EC1B7D2BB8D39A1F7C /* Pods_MindWaveJournalerUITests.framework */; };
 		B1DAF4F521153F8B00CA0E06 /* libMWMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */; };
 		B1FE2B1D2114BCE000A1584B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */; };
 		B1FE2B1F2114BCE000A1584B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B1E2114BCE000A1584B /* ViewController.swift */; };
@@ -16,6 +17,8 @@
 		B1FE2B2A2114BCE000A1584B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1FE2B282114BCE000A1584B /* LaunchScreen.storyboard */; };
 		B1FE2B352114BCE000A1584B /* MindWaveJournalerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B342114BCE000A1584B /* MindWaveJournalerTests.swift */; };
 		B1FE2B402114BCE100A1584B /* MindWaveJournalerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B3F2114BCE100A1584B /* MindWaveJournalerUITests.swift */; };
+		C9A68329A24ED4D4EA945049 /* Pods_MindWaveJournaler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB09320F550272CA4F21AF1 /* Pods_MindWaveJournaler.framework */; };
+		E77908104B4AD72AE7A6063A /* Pods_MindWaveJournalerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB18229999E3B49819FE583 /* Pods_MindWaveJournalerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2143174AC3920E460D548DB5 /* Pods-MindWaveJournalerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournalerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournalerTests/Pods-MindWaveJournalerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2B94A1EC1B7D2BB8D39A1F7C /* Pods_MindWaveJournalerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MindWaveJournalerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEB240903EC08C4A43E5394F /* Pods-MindWaveJournaler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournaler.release.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournaler/Pods-MindWaveJournaler.release.xcconfig"; sourceTree = "<group>"; };
 		B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMWMSDK.a; sourceTree = "<group>"; };
 		B1FE2B192114BCE000A1584B /* MindWaveJournaler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindWaveJournaler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,11 +57,13 @@
 		B1FE2B3B2114BCE100A1584B /* MindWaveJournalerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindWaveJournalerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FE2B3F2114BCE100A1584B /* MindWaveJournalerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindWaveJournalerUITests.swift; sourceTree = "<group>"; };
 		B1FE2B412114BCE100A1584B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B1FE2B4F2114BDFF00A1584B /* MWMDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDevice.h; sourceTree = SOURCE_ROOT; };
-		B1FE2B502114BDFF00A1584B /* MWMEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEnum.h; sourceTree = SOURCE_ROOT; };
-		B1FE2B512114BDFF00A1584B /* MWMDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDelegate.h; sourceTree = SOURCE_ROOT; };
-		B1FE2B522114BE3900A1584B /* libMWMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMWMSDK.a; sourceTree = "<group>"; };
 		B1FE2B552114BF7300A1584B /* MindWaveJournaler-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MindWaveJournaler-Bridging-Header.h"; sourceTree = "<group>"; };
+		B32E0A04E4AEDC941F60DFB4 /* Pods-MindWaveJournalerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournalerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournalerUITests/Pods-MindWaveJournalerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BBB18229999E3B49819FE583 /* Pods_MindWaveJournalerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MindWaveJournalerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD7A91153D0CB1EF06D34CFF /* Pods-MindWaveJournaler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournaler.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournaler/Pods-MindWaveJournaler.debug.xcconfig"; sourceTree = "<group>"; };
+		D9C33C25D3F28271CF8FA29F /* Pods-MindWaveJournalerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournalerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournalerUITests/Pods-MindWaveJournalerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		EBB09320F550272CA4F21AF1 /* Pods_MindWaveJournaler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MindWaveJournaler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F377097831BCA4EDCB53A6E1 /* Pods-MindWaveJournalerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournalerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournalerTests/Pods-MindWaveJournalerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1DAF4F521153F8B00CA0E06 /* libMWMSDK.a in Frameworks */,
+				C9A68329A24ED4D4EA945049 /* Pods_MindWaveJournaler.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E77908104B4AD72AE7A6063A /* Pods_MindWaveJournalerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79A42F2B027091B62AA9D9B7 /* Pods_MindWaveJournalerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +104,7 @@
 				B1FE2B3E2114BCE100A1584B /* MindWaveJournalerUITests */,
 				B1FE2B1A2114BCE000A1584B /* Products */,
 				B1FE2B532114BE4200A1584B /* Frameworks */,
+				D8942DC186FDF98A0D9EA6F3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,7 +121,6 @@
 		B1FE2B1B2114BCE000A1584B /* MindWaveJournaler */ = {
 			isa = PBXGroup;
 			children = (
-				B1FE2B4E2114BDC900A1584B /* NeuroSkySDK */,
 				B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */,
 				B1FE2B1E2114BCE000A1584B /* ViewController.swift */,
 				B1FE2B202114BCE000A1584B /* Main.storyboard */,
@@ -139,23 +150,28 @@
 			path = MindWaveJournalerUITests;
 			sourceTree = "<group>";
 		};
-		B1FE2B4E2114BDC900A1584B /* NeuroSkySDK */ = {
-			isa = PBXGroup;
-			children = (
-				B1FE2B522114BE3900A1584B /* libMWMSDK.a */,
-				B1FE2B512114BDFF00A1584B /* MWMDelegate.h */,
-				B1FE2B4F2114BDFF00A1584B /* MWMDevice.h */,
-				B1FE2B502114BDFF00A1584B /* MWMEnum.h */,
-			);
-			path = NeuroSkySDK;
-			sourceTree = "<group>";
-		};
 		B1FE2B532114BE4200A1584B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */,
+				EBB09320F550272CA4F21AF1 /* Pods_MindWaveJournaler.framework */,
+				BBB18229999E3B49819FE583 /* Pods_MindWaveJournalerTests.framework */,
+				2B94A1EC1B7D2BB8D39A1F7C /* Pods_MindWaveJournalerUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D8942DC186FDF98A0D9EA6F3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CD7A91153D0CB1EF06D34CFF /* Pods-MindWaveJournaler.debug.xcconfig */,
+				AEB240903EC08C4A43E5394F /* Pods-MindWaveJournaler.release.xcconfig */,
+				2143174AC3920E460D548DB5 /* Pods-MindWaveJournalerTests.debug.xcconfig */,
+				F377097831BCA4EDCB53A6E1 /* Pods-MindWaveJournalerTests.release.xcconfig */,
+				B32E0A04E4AEDC941F60DFB4 /* Pods-MindWaveJournalerUITests.debug.xcconfig */,
+				D9C33C25D3F28271CF8FA29F /* Pods-MindWaveJournalerUITests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B1FE2B442114BCE100A1584B /* Build configuration list for PBXNativeTarget "MindWaveJournaler" */;
 			buildPhases = (
+				AE8693C195802C08E42B3BCB /* [CP] Check Pods Manifest.lock */,
 				B1FE2B152114BCE000A1584B /* Sources */,
 				B1FE2B162114BCE000A1584B /* Frameworks */,
 				B1FE2B172114BCE000A1584B /* Resources */,
+				1814D2A901E53DF52A50F815 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,6 +200,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B1FE2B472114BCE100A1584B /* Build configuration list for PBXNativeTarget "MindWaveJournalerTests" */;
 			buildPhases = (
+				72E4C7077E24B978F36DBABB /* [CP] Check Pods Manifest.lock */,
 				B1FE2B2C2114BCE000A1584B /* Sources */,
 				B1FE2B2D2114BCE000A1584B /* Frameworks */,
 				B1FE2B2E2114BCE000A1584B /* Resources */,
@@ -200,6 +219,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B1FE2B4A2114BCE100A1584B /* Build configuration list for PBXNativeTarget "MindWaveJournalerUITests" */;
 			buildPhases = (
+				F74F2FCD4B77F52D98AFCC5C /* [CP] Check Pods Manifest.lock */,
 				B1FE2B372114BCE100A1584B /* Sources */,
 				B1FE2B382114BCE100A1584B /* Frameworks */,
 				B1FE2B392114BCE100A1584B /* Resources */,
@@ -283,6 +303,81 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1814D2A901E53DF52A50F815 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MindWaveJournaler/Pods-MindWaveJournaler-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MindWaveJournaler/Pods-MindWaveJournaler-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72E4C7077E24B978F36DBABB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MindWaveJournalerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE8693C195802C08E42B3BCB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MindWaveJournaler-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F74F2FCD4B77F52D98AFCC5C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MindWaveJournalerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B1FE2B152114BCE000A1584B /* Sources */ = {
@@ -462,6 +557,7 @@
 		};
 		B1FE2B452114BCE100A1584B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD7A91153D0CB1EF06D34CFF /* Pods-MindWaveJournaler.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -485,6 +581,7 @@
 		};
 		B1FE2B462114BCE100A1584B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEB240903EC08C4A43E5394F /* Pods-MindWaveJournaler.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -508,6 +605,7 @@
 		};
 		B1FE2B482114BCE100A1584B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2143174AC3920E460D548DB5 /* Pods-MindWaveJournalerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -529,6 +627,7 @@
 		};
 		B1FE2B492114BCE100A1584B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F377097831BCA4EDCB53A6E1 /* Pods-MindWaveJournalerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -550,6 +649,7 @@
 		};
 		B1FE2B4B2114BCE100A1584B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B32E0A04E4AEDC941F60DFB4 /* Pods-MindWaveJournalerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -570,6 +670,7 @@
 		};
 		B1FE2B4C2114BCE100A1584B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9C33C25D3F28271CF8FA29F /* Pods-MindWaveJournalerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

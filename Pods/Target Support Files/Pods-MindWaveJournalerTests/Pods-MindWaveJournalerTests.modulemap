@@ -1,0 +1,6 @@
+framework module Pods_MindWaveJournalerTests {
+  umbrella header "Pods-MindWaveJournalerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
