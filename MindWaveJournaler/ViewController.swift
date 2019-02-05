@@ -14,17 +14,23 @@
 import UIKit
 import CoreBluetooth
 import Alamofire
+import Toaster
 
 let central = CBCentralManager()
 
 class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, MindMobileEEGSampleDelegate {
+    
+    var discoveredDevices: Array<String> = []
+    
+    @IBAction func startButton(_ sender: Any) {
+        mindWaveDevice.connect(discoveredDevices[0])
+    }
     
     func completedSample(sample: Parameters) {
         storeSample(sample: sample)
         sampleInProcess.startNewSample()
     }
     
-
     let mindWaveDevice = MWMDevice()
     let sampleInProcess = MindMobileEEGSample()
     
@@ -33,7 +39,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         case CBManagerState.poweredOn:
             mindWaveDevice.scanDevice()
         default:
-            print("BLE Off")
+            toast(text: "Bluetooth is turned off.")
         }
     }
 
@@ -52,16 +58,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     func deviceFound(_ devName: String!, mfgID: String!, deviceID: String!) {
         print("Device Name" + devName! + "\n" + "Manfacturer ID: " + mfgID! + "\n" + "Device ID: " + deviceID!)
         mindWaveDevice.stopScanDevice()
-        mindWaveDevice.connect(deviceID!)
+        discoveredDevices.append(deviceID!)
+        toast(text: "Discovered device.")
         mindWaveDevice.readConfig()
     }
     
     func didConnect() {
-        print("Connected")
+        toast(text: "Connected")
     }
     
     func didDisconnect() {
         mindWaveDevice.scanDevice()
+        toast(text: "Disconnected.  Trying to reconnect...")
     }
 
     func eegBlink(_ blinkValue: Int32) {
@@ -85,9 +93,30 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     }
     
     func storeSample(sample: Parameters) {
-        Alamofire.request("http://ladvien.com:3000/eegsamples/", method: .post, parameters:  sample, encoding: JSONEncoding.default).responseJSON { response in
-            print(response)
+        
+        Alamofire.request("http://ladvien.com:3000/eegsamples/", method: .post, parameters:  sample, encoding: JSONEncoding.default)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseData { response in
+                if let error = response.error?.localizedDescription {
+                    self.toast(text: error)
+                    return
+                }
+                switch response.result {
+                case .success:
+                    print("Validation Successful")
+                case .failure(let error):
+                    print(error)
+                }
         }
+
+    }
+    
+    func toast(text: String) {
+        let toasterFont = UIFont.systemFont(ofSize: 24.0)
+        ToastView.appearance().font = toasterFont
+        let toast = Toast(text: text, delay: Delay.short, duration: Delay.long)
+        toast.show()
     }
     
 }
