@@ -14,11 +14,14 @@
 import UIKit
 import CoreBluetooth
 import Alamofire
-import Toaster
+import Toast_Swift
+import Macaw
 
 let central = CBCentralManager()
 
 class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, MindMobileEEGSampleDelegate {
+
+    @IBOutlet weak var mindWaveMobile: UIView!
     
     var discoveredDevices: Array<String> = []
     
@@ -48,6 +51,28 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         central.delegate = self
         mindWaveDevice.delegate = self
         sampleInProcess.delegate = self
+        
+        
+        // Make Toaster_Swift Styl
+        var style = ToastStyle()
+        
+        // this is just one of many style options
+        style.backgroundColor = .blue
+        ToastManager.shared.style = style
+        
+        let view = UIView()
+        
+        let form1 = Rect(x: 50.0, y: 50.0, w: 200.0, h: 200.0)
+        let form2 = Circle(cx: 150.0, cy: 150.0, r: 100.0)
+        
+        let shape = Shape(form: form1, stroke: Stroke(width: 3.0))
+        let animation = shape.formVar.animation(to: form2, during: 1.5, delay: 2.0)
+        animation.autoreversed().cycle().play()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +86,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         discoveredDevices.append(deviceID!)
         toast(text: "Discovered device.")
         mindWaveDevice.readConfig()
+        
+        UIView.animate(withDuration: 12.0, animations: { () -> Void in
+
+        })
     }
     
     func didConnect() {
@@ -94,7 +123,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     
     func storeSample(sample: Parameters) {
         
-        Alamofire.request("http://ladvien.com:3000/eegsamples/", method: .post, parameters:  sample, encoding: JSONEncoding.default)
+        Alamofire.request("http://maddatum.com:8080/eegsamples/", method: .post, parameters:  sample, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseData { response in
@@ -113,11 +142,32 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     }
     
     func toast(text: String) {
-        let toasterFont = UIFont.systemFont(ofSize: 24.0)
-        ToastView.appearance().font = toasterFont
-        let toast = Toast(text: text, delay: Delay.short, duration: Delay.long)
-        toast.show()
+        self.view.makeToast(text, duration: 3.0, position: .center)
+    }
+    
+    func changeImageColor(imageView: UIImageView, color: UIColor) {
+//        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+//            imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
+//            imageView.tintColor = color
+//        })
     }
     
 }
 
+extension UIImage {
+    class func circle(diameter: CGFloat, color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, 0)
+        let ctx = UIGraphicsGetCurrentContext()!
+        ctx.saveGState()
+        
+        let rect = CGRect(x: 0, y: 0, width: diameter, height: diameter)
+        ctx.setFillColor(color.cgColor)
+        ctx.fillEllipse(in: rect)
+        
+        ctx.restoreGState()
+        let img = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return img
+    }
+}
