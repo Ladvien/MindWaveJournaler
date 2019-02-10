@@ -8,7 +8,6 @@ target 'MindWaveJournaler' do
   # Pods for MindWaveJournaler
   pod 'Alamofire', '~> 4.7'
   pod 'Toast-Swift'
-  pod "Macaw"
   
   target 'MindWaveJournalerTests' do
     inherit! :search_paths

@@ -15,15 +15,21 @@ import UIKit
 import CoreBluetooth
 import Alamofire
 import Toast_Swift
-import Macaw
 
 let central = CBCentralManager()
 
 class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, MindMobileEEGSampleDelegate {
-
-    @IBOutlet weak var mindWaveMobile: UIView!
     
+    // Outlets
+    @IBOutlet weak var mindWaveMobileConnection: UIView!
+    @IBOutlet weak var recordingData: UIView!
+    @IBOutlet weak var serverConnection: UIView!
+    
+    var connectionViews: [UIView] = []
+    
+
     var discoveredDevices: Array<String> = []
+    
     
     @IBAction func startButton(_ sender: Any) {
         mindWaveDevice.connect(discoveredDevices[0])
@@ -59,15 +65,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         // this is just one of many style options
         style.backgroundColor = .blue
         ToastManager.shared.style = style
-        
-        let view = UIView()
-        
-        let form1 = Rect(x: 50.0, y: 50.0, w: 200.0, h: 200.0)
-        let form2 = Circle(cx: 150.0, cy: 150.0, r: 100.0)
-        
-        let shape = Shape(form: form1, stroke: Stroke(width: 3.0))
-        let animation = shape.formVar.animation(to: form2, during: 1.5, delay: 2.0)
-        animation.autoreversed().cycle().play()
+        connectionViews = [mindWaveMobileConnection,
+                           recordingData,
+                           serverConnection]
+        intitializeConnectionImages(views: connectionViews)
         
     }
     
@@ -86,14 +87,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         discoveredDevices.append(deviceID!)
         toast(text: "Discovered device.")
         mindWaveDevice.readConfig()
-        
-        UIView.animate(withDuration: 12.0, animations: { () -> Void in
-
-        })
+        mindWaveMobileConnection.changeSignal(color: .yellow)
+        mindWaveDevice.connect(deviceID!)
     }
     
     func didConnect() {
         toast(text: "Connected")
+        mindWaveMobileConnection.changeSignal(color: .green)
     }
     
     func didDisconnect() {
@@ -111,6 +111,8 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
 
     func eSense(_ poorSignal: Int32, attention: Int32, meditation: Int32) {
         sampleInProcess.addDataToSampe(packetName: "eSense", reading: [poorSignal, attention, meditation])
+        let signalColor = mapPoorSignalToColor(signal: Int(poorSignal))
+        recordingData.changeSignal(color: signalColor)
     }
 
     func eegPowerDelta(_ delta: Int32, theta: Int32, lowAlpha: Int32, highAlpha: Int32) {
@@ -122,18 +124,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     }
     
     func storeSample(sample: Parameters) {
-        
         Alamofire.request("http://maddatum.com:8080/eegsamples/", method: .post, parameters:  sample, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseData { response in
                 if let error = response.error?.localizedDescription {
                     self.toast(text: error)
+                    self.serverConnection.changeSignal(color: .red)
                     return
                 }
                 switch response.result {
                 case .success:
-                    print("Validation Successful")
+                    self.serverConnection.changeSignal(color: .green)
                 case .failure(let error):
                     print(error)
                 }
@@ -145,29 +147,56 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         self.view.makeToast(text, duration: 3.0, position: .center)
     }
     
-    func changeImageColor(imageView: UIImageView, color: UIColor) {
-//        UIView.animate(withDuration: 0.5, animations: { () -> Void in
-//            imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
-//            imageView.tintColor = color
-//        })
+
+    
+    func intitializeConnectionImages(views: [UIView]) {
+        for view in views {
+            view.asCircle()
+            view.backgroundColor = .red
+        }
+    }
+    
+    func mapPoorSignalToColor (signal: Int) -> UIColor {
+        return UIColor.green.toColor(.red, percentage: CGFloat((Float(signal) / 200.0) * 100))
     }
     
 }
 
-extension UIImage {
-    class func circle(diameter: CGFloat, color: UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, 0)
-        let ctx = UIGraphicsGetCurrentContext()!
-        ctx.saveGState()
-        
-        let rect = CGRect(x: 0, y: 0, width: diameter, height: diameter)
-        ctx.setFillColor(color.cgColor)
-        ctx.fillEllipse(in: rect)
-        
-        ctx.restoreGState()
-        let img = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        return img
+extension UIView {
+    func asCircle(){
+        self.layer.cornerRadius = self.frame.width / 2;
+        self.layer.masksToBounds = true
+    }
+    
+    func changeSignal(color: UIColor) {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
+            self.backgroundColor = color
+            let scale = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.transform = scale
+        }) { (Bool) in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            })
+        }
+    }
+}
+
+extension UIColor {
+    func toColor(_ color: UIColor, percentage: CGFloat) -> UIColor {
+        let percentage = max(min(percentage, 100), 0) / 100
+        switch percentage {
+        case 0: return self
+        case 1: return color
+        default:
+            var (r1, g1, b1, a1): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
+            var (r2, g2, b2, a2): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
+            guard self.getRed(&r1, green: &g1, blue: &b1, alpha: &a1) else { return self }
+            guard color.getRed(&r2, green: &g2, blue: &b2, alpha: &a2) else { return self }
+            
+            return UIColor(red: CGFloat(r1 + (r2 - r1) * percentage),
+                           green: CGFloat(g1 + (g2 - g1) * percentage),
+                           blue: CGFloat(b1 + (b2 - b1) * percentage),
+                           alpha: CGFloat(a1 + (a2 - a1) * percentage))
+        }
     }
 }
