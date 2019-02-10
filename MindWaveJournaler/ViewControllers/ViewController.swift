@@ -15,6 +15,8 @@ import UIKit
 import CoreBluetooth
 import Alamofire
 
+let remoteDevices = RemoteDevices()
+
 class ViewController: UIViewController, RemoteDevicesDelegate {
     
     // Colors
@@ -25,8 +27,9 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
     let mediumColor = UIColor(rgb: 0xF4B844)
     let badColor = UIColor(rgb: 0xEE6352)
 
-    //
-    let remoteDevices = RemoteDevices()
+    // Flags
+    var segueUnderway = false
+
     
     // Outlets
     var connectionViews: [UIView] = []
@@ -40,8 +43,9 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        remoteDevices.delegate = self
-
+        // Fix for automatic scrolling on UITextView
+        console.layoutManager.allowsNonContiguousLayout = false
+        
         // Add graphical widgets to array for easy update
         connectionViews = [mindWaveMobileConnectionIndicator, serverConnectionIndicator]
         intitializeConnectionImages(views: connectionViews)
@@ -49,12 +53,14 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
         // Start logging.
         console.textColor = primary
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        // Hide Activity NavBar Button until needed.
-//        if !remoteDevices.connectedToDevice {
-//            self.navigationItem.rightBarButtonItem = nil
-//        }
-        
+        remoteDevices.delegate = self
+        if remoteDevices.serverConnection == .connected {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,7 +84,9 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
     func update(deviceConnection: DeviceConnection, serverConnection: ServerConnection, deviceSignalStrength: Double, log: String) {
         
         // Update user's log
-        console.text += log
+        console.text = log
+        let stringLength:Int = console.text.count
+        console.scrollRangeToVisible(NSMakeRange(stringLength-1, 0))
         
         // Update device signal icons.
         switch deviceConnection {
@@ -104,6 +112,15 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
         switch serverConnection {
         case .connected:
             serverConnectionIndicator.changeSignal(color: goodColor)
+            if !segueUnderway {
+                segueUnderway = true
+                Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { (timer) in
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "activity") as! ActivityViewController
+                    remoteDevices.delegate = nextViewController
+                    self.navigationController?.pushViewController(nextViewController, animated: true)
+                }
+            }
         default:
             serverConnectionIndicator.changeSignal(color: badColor)
         }

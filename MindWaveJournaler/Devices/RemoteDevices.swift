@@ -11,7 +11,7 @@ import UIKit
 import CoreBluetooth
 import Alamofire
 
-let central = CBCentralManager()
+public var central = CBCentralManager()
 
 public enum ServerConnection {
     case unknown
@@ -36,8 +36,8 @@ public protocol RemoteDevicesDelegate {
 public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, MindMobileEEGSampleDelegate {
     
     public var delegate: RemoteDevicesDelegate?
-    private var mindWaveDevice = MWMDevice()
-    private var sampleInProcess = MindMobileEEGSample()
+    public var mindWaveDevice = MWMDevice()
+    public var sampleInProcess = MindMobileEEGSample()
     
     // Constants
     let server = "http://maddatum.com:8080/"
@@ -50,8 +50,10 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
     private var connectedDeviceName = ""
     private var targetConnectionDeviceId = ""
     private var targetConnectionDeviceName = ""
-    private var serverConnection: ServerConnection = .unknown
-    private var deviceConnection: DeviceConnection = .unknown
+    
+    // Public Get, Private Set
+    public private(set) var serverConnection: ServerConnection = .unknown
+    public private(set) var deviceConnection: DeviceConnection = .unknown
     
     override init() {
         super.init()
@@ -124,23 +126,23 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
         delegate?.update(deviceConnection: deviceConnection, serverConnection: serverConnection, deviceSignalStrength: mindMobileSignalStrength, log: logText)
     }
     
-    private func eegBlink(_ blinkValue: Int32) {
+    public func eegBlink(_ blinkValue: Int32) {
         sampleInProcess.addDataToSampe(packetName: "eegBlink", reading: [blinkValue])
     }
     
-    private func eegSample(_ sample: Int32) {
+    public func eegSample(_ sample: Int32) {
         // Not currently used
     }
     
-    private func eSense(_ poorSignal: Int32, attention: Int32, meditation: Int32) {
+    public func eSense(_ poorSignal: Int32, attention: Int32, meditation: Int32) {
         sampleInProcess.addDataToSampe(packetName: "eSense", reading: [poorSignal, attention, meditation])
     }
     
-    private func eegPowerDelta(_ delta: Int32, theta: Int32, lowAlpha: Int32, highAlpha: Int32) {
+    public func eegPowerDelta(_ delta: Int32, theta: Int32, lowAlpha: Int32, highAlpha: Int32) {
         sampleInProcess.addDataToSampe(packetName: "eegPowerDelta", reading: [delta, theta, lowAlpha, highAlpha])
     }
     
-    private func eegPowerLowBeta(_ lowBeta: Int32, highBeta: Int32, lowGamma: Int32, midGamma: Int32) {
+    public func eegPowerLowBeta(_ lowBeta: Int32, highBeta: Int32, lowGamma: Int32, midGamma: Int32) {
         sampleInProcess.addDataToSampe(packetName: "eegPowerLowBeta", reading: [lowBeta, highBeta, lowGamma, midGamma])
     }
     
@@ -153,19 +155,23 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseData { response in
-                if let error = response.error?.localizedDescription {
-                    self.addTextToConsole(text: "Unable to make contact with Mind Journal Server: \n\t")
-                    self.addTextToConsole(text: "Server address: " + self.server + "\n\t")
-                    self.addTextToConsole(text: "End point: " + self.endPoint + "\n")
-                    self.serverConnection = .failedToContact
+                if let _ = response.error?.localizedDescription {
+                    if self.serverConnection == ServerConnection.unknown {
+                        self.addTextToConsole(text: "Unable to make contact with Mind Journal Server: \n\t")
+                        self.addTextToConsole(text: "Server address: " + self.server + "\n\t")
+                        self.addTextToConsole(text: "End point: " + self.endPoint + "\n")
+                        self.serverConnection = .failedToContact
+                    }
                     self.delegate?.update(deviceConnection: self.deviceConnection, serverConnection: self.serverConnection, deviceSignalStrength: self.mindMobileSignalStrength, log: self.logText)
                     return
                 }
                 switch response.result {
                 case .success:
-                    self.addTextToConsole(text: "Connected to server: \n\t")
-                    self.addTextToConsole(text: self.server + self.endPoint + "\n\t")
-                    self.serverConnection = .connected
+                    if self.serverConnection != ServerConnection.connected {
+                        self.addTextToConsole(text: "Connected to server: \n\t")
+                        self.addTextToConsole(text: self.server + self.endPoint + "\n")
+                        self.serverConnection = .connected
+                    }
                     self.delegate?.update(deviceConnection: self.deviceConnection, serverConnection: self.serverConnection, deviceSignalStrength: self.mindMobileSignalStrength, log: self.logText)
                 case .failure(_):
                     print("Error")

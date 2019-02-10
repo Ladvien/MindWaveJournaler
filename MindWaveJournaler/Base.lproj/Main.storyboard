@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6C9-fz-Gqx">
-                                <rect key="frame" x="31" y="419" width="313" height="209"/>
+                                <rect key="frame" x="43" y="438" width="301" height="197"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -44,7 +44,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="VSA-GY-xkQ">
-                        <barButtonItem key="rightBarButtonItem" title="Activity" id="klv-F2-HAN"/>
+                        <barButtonItem key="rightBarButtonItem" title="Activity" id="klv-F2-HAN">
+                            <connections>
+                                <segue destination="AZI-mR-vWG" kind="show" id="mmI-8r-fO2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="klv-F2-HAN" id="75d-Hy-82r"/>
@@ -57,10 +61,10 @@
             </objects>
             <point key="canvasLocation" x="1076" y="111.99400299850076"/>
         </scene>
-        <!--View Controller-->
+        <!--Activity View Controller-->
         <scene sceneID="o6e-jS-2EU">
             <objects>
-                <viewController storyboardIdentifier="activity" id="AZI-mR-vWG" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="activity" id="AZI-mR-vWG" customClass="ActivityViewController" customModule="MindWaveJournaler" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SeH-fc-OVZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
