@@ -20,20 +20,25 @@ let central = CBCentralManager()
 
 class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, MindMobileEEGSampleDelegate {
     
+    // Server
+    let server = "http://maddatum.com:8080/"
+    let endPoint = "eegsamples/"
+    
+    // Colors
+    let primary = UIColor(rgb: 0x00ACEA)
+    let secondary = UIColor(rgb: 0xF4B844)
+    let tertierary = UIColor(rgb: 0x00EFD1)
+    let goodColor = UIColor(rgb: 0xABE188)
+    let mediumColor = UIColor(rgb: 0xF4B844)
+    let badColor = UIColor(rgb: 0xEE6352)
+    
     // Outlets
-    @IBOutlet weak var mindWaveMobileConnection: UIView!
-    @IBOutlet weak var recordingData: UIView!
-    @IBOutlet weak var serverConnection: UIView!
-    
     var connectionViews: [UIView] = []
+    @IBOutlet weak var mindWaveMobileConnection: UIView!
+    @IBOutlet weak var serverConnection: UIView!
+    @IBOutlet weak var console: UITextView!
     
-
     var discoveredDevices: Array<String> = []
-    
-    
-    @IBAction func startButton(_ sender: Any) {
-        mindWaveDevice.connect(discoveredDevices[0])
-    }
     
     func completedSample(sample: Parameters) {
         storeSample(sample: sample)
@@ -54,26 +59,23 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Attach delegates
         central.delegate = self
         mindWaveDevice.delegate = self
         sampleInProcess.delegate = self
         
-        
         // Make Toaster_Swift Styl
         var style = ToastStyle()
-        
-        // this is just one of many style options
         style.backgroundColor = .blue
         ToastManager.shared.style = style
-        connectionViews = [mindWaveMobileConnection,
-                           recordingData,
-                           serverConnection]
+
+        // Add graphical widgets to array for easy update
+        connectionViews = [mindWaveMobileConnection, serverConnection]
         intitializeConnectionImages(views: connectionViews)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
+        // Start logging.
+        console.text += "Searching for device...\n"
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,18 +84,19 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     
     
     func deviceFound(_ devName: String!, mfgID: String!, deviceID: String!) {
-        print("Device Name" + devName! + "\n" + "Manfacturer ID: " + mfgID! + "\n" + "Device ID: " + deviceID!)
+        console.text += "Discovered device\n\t"
+        console.text += "Device Name: " + devName! + "\n\t" + "Manfacturer ID: " + mfgID! + "\n\t" + "Device ID: " + deviceID! + "\n"
         mindWaveDevice.stopScanDevice()
         discoveredDevices.append(deviceID!)
-        toast(text: "Discovered device.")
         mindWaveDevice.readConfig()
-        mindWaveMobileConnection.changeSignal(color: .yellow)
+        mindWaveMobileConnection.changeSignal(color: mediumColor)
+        console.text += "Attempting to connect to " + devName!
         mindWaveDevice.connect(deviceID!)
     }
     
     func didConnect() {
-        toast(text: "Connected")
-        mindWaveMobileConnection.changeSignal(color: .green)
+        console.text += "Connection successful."
+        mindWaveMobileConnection.changeSignal(color: goodColor)
     }
     
     func didDisconnect() {
@@ -112,7 +115,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     func eSense(_ poorSignal: Int32, attention: Int32, meditation: Int32) {
         sampleInProcess.addDataToSampe(packetName: "eSense", reading: [poorSignal, attention, meditation])
         let signalColor = mapPoorSignalToColor(signal: Int(poorSignal))
-        recordingData.changeSignal(color: signalColor)
+        mindWaveMobileConnection.changeSignal(color: signalColor)
     }
 
     func eegPowerDelta(_ delta: Int32, theta: Int32, lowAlpha: Int32, highAlpha: Int32) {
@@ -124,18 +127,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     }
     
     func storeSample(sample: Parameters) {
-        Alamofire.request("http://maddatum.com:8080/eegsamples/", method: .post, parameters:  sample, encoding: JSONEncoding.default)
+        Alamofire.request(server + endPoint, method: .post, parameters:  sample, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseData { response in
                 if let error = response.error?.localizedDescription {
                     self.toast(text: error)
-                    self.serverConnection.changeSignal(color: .red)
+                    self.serverConnection.changeSignal(color: self.badColor)
                     return
                 }
                 switch response.result {
                 case .success:
-                    self.serverConnection.changeSignal(color: .green)
+                    self.serverConnection.changeSignal(color: self.goodColor)
                 case .failure(let error):
                     print(error)
                 }
@@ -144,20 +147,19 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     }
     
     func toast(text: String) {
-        self.view.makeToast(text, duration: 3.0, position: .center)
+//        self.view.hideToast()
+//        self.view.makeToast(text, duration: 3.0, position: .bottom)
     }
-    
-
     
     func intitializeConnectionImages(views: [UIView]) {
         for view in views {
             view.asCircle()
-            view.backgroundColor = .red
+            view.backgroundColor = badColor
         }
     }
     
     func mapPoorSignalToColor (signal: Int) -> UIColor {
-        return UIColor.green.toColor(.red, percentage: CGFloat((Float(signal) / 200.0) * 100))
+        return goodColor.toColor(badColor, percentage: CGFloat((Float(signal) / 200.0) * 100))
     }
     
 }
@@ -198,5 +200,23 @@ extension UIColor {
                            blue: CGFloat(b1 + (b2 - b1) * percentage),
                            alpha: CGFloat(a1 + (a2 - a1) * percentage))
         }
+    }
+}
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(rgb: Int) {
+        self.init(
+            red: (rgb >> 16) & 0xFF,
+            green: (rgb >> 8) & 0xFF,
+            blue: rgb & 0xFF
+        )
     }
 }
