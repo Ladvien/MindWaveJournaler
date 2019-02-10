@@ -14,7 +14,6 @@
 import UIKit
 import CoreBluetooth
 import Alamofire
-import Toast_Swift
 
 let central = CBCentralManager()
 
@@ -40,6 +39,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     
     var discoveredDevices: Array<String> = []
     
+    // Flag
+    var contactedServer = false
+    
     func completedSample(sample: Parameters) {
         storeSample(sample: sample)
         sampleInProcess.startNewSample()
@@ -53,7 +55,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         case CBManagerState.poweredOn:
             mindWaveDevice.scanDevice()
         default:
-            toast(text: "Bluetooth is turned off.")
+            self.console.text += "Bluetooth is turned off.\n"
         }
     }
 
@@ -65,16 +67,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         mindWaveDevice.delegate = self
         sampleInProcess.delegate = self
         
-        // Make Toaster_Swift Styl
-        var style = ToastStyle()
-        style.backgroundColor = .blue
-        ToastManager.shared.style = style
-
         // Add graphical widgets to array for easy update
         connectionViews = [mindWaveMobileConnection, serverConnection]
         intitializeConnectionImages(views: connectionViews)
         
         // Start logging.
+        console.textColor = primary
         console.text += "Searching for device...\n"
     }
 
@@ -84,24 +82,34 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     
     
     func deviceFound(_ devName: String!, mfgID: String!, deviceID: String!) {
+        // Found a device, let the user know.
         console.text += "Discovered device\n\t"
         console.text += "Device Name: " + devName! + "\n\t" + "Manfacturer ID: " + mfgID! + "\n\t" + "Device ID: " + deviceID! + "\n"
+        
+        // Stop searching and remember device ID.
         mindWaveDevice.stopScanDevice()
         discoveredDevices.append(deviceID!)
+        
+        // Get the configuration information from the Mind Wave Mobile.
         mindWaveDevice.readConfig()
+        
+        // Update teh user about what's going on.
         mindWaveMobileConnection.changeSignal(color: mediumColor)
-        console.text += "Attempting to connect to " + devName!
+        console.text += "Attempting to connect to " + devName! + "\n"
+        
+        // Attempt to connect to the discovered device.
         mindWaveDevice.connect(deviceID!)
     }
     
     func didConnect() {
-        console.text += "Connection successful."
+        console.text += "Connection successful.\n"
         mindWaveMobileConnection.changeSignal(color: goodColor)
     }
     
     func didDisconnect() {
+        console.text += "Disconnected from MindWave Mobile\n"
         mindWaveDevice.scanDevice()
-        toast(text: "Disconnected.  Trying to reconnect...")
+        console.text += "Searching for device...\n"
     }
 
     func eegBlink(_ blinkValue: Int32) {
@@ -132,23 +140,28 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
             .validate(contentType: ["application/json"])
             .responseData { response in
                 if let error = response.error?.localizedDescription {
-                    self.toast(text: error)
                     self.serverConnection.changeSignal(color: self.badColor)
+                    self.console.text += "Unable to make contact with Mind Journal Server: \n\t"
+                    self.console.text += "Server address: " + self.server + "\n\t"
+                    self.console.text += "End point: " + self.endPoint + "\n"
+                    
+                    // Reset server contact flag
+                    self.contactedServer = false
                     return
                 }
                 switch response.result {
                 case .success:
+                    if !self.contactedServer {
+                        self.console.text += "Connected to server: \n\t"
+                        self.console.text += self.server + self.endPoint + "\n\t"
+                        self.contactedServer = true
+                    }
                     self.serverConnection.changeSignal(color: self.goodColor)
                 case .failure(let error):
                     print(error)
                 }
         }
 
-    }
-    
-    func toast(text: String) {
-//        self.view.hideToast()
-//        self.view.makeToast(text, duration: 3.0, position: .bottom)
     }
     
     func intitializeConnectionImages(views: [UIView]) {

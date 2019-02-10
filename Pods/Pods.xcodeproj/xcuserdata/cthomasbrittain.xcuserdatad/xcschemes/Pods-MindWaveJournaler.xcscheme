@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BA333F4EAD0B607AB2823740F4397624"
+               BlueprintIdentifier = "4BB38329E739B470CD3BEDB23DF82E0F"
                BuildableName = "Pods_MindWaveJournaler.framework"
                BlueprintName = "Pods-MindWaveJournaler"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BA333F4EAD0B607AB2823740F4397624"
+            BlueprintIdentifier = "4BB38329E739B470CD3BEDB23DF82E0F"
             BuildableName = "Pods_MindWaveJournaler.framework"
             BlueprintName = "Pods-MindWaveJournaler"
             ReferencedContainer = "container:Pods.xcodeproj">
