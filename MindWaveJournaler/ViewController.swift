@@ -16,6 +16,7 @@ import CoreBluetooth
 import Alamofire
 
 let central = CBCentralManager()
+let remoteDevices = RemoteDevices()
 
 class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, MindMobileEEGSampleDelegate {
     
@@ -37,10 +38,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     @IBOutlet weak var serverConnection: UIView!
     @IBOutlet weak var console: UITextView!
     
-    var discoveredDevices: Array<String> = []
+    // Buttons
+    @IBOutlet weak var activity: UIBarButtonItem!
     
-    // Flag
+    // Locals
     var contactedServer = false
+    var targetConnectionDeviceId = ""
+    var targetConnectionDeviceName = ""
     
     func completedSample(sample: Parameters) {
         storeSample(sample: sample)
@@ -55,7 +59,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         case CBManagerState.poweredOn:
             mindWaveDevice.scanDevice()
         default:
-            self.console.text += "Bluetooth is turned off.\n"
+            remoteDevices.addTextToConsole(text: "Bluetooth is turned off.\n")
         }
     }
 
@@ -73,7 +77,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
         
         // Start logging.
         console.textColor = primary
-        console.text += "Searching for device...\n"
+        remoteDevices.setConsole(console: console)
+        remoteDevices.addTextToConsole(text: "Searching for device...\n")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        // Hide Activity NavBar Button until needed.
+        if !remoteDevices.connectedToDevice {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,33 +95,37 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
     
     func deviceFound(_ devName: String!, mfgID: String!, deviceID: String!) {
         // Found a device, let the user know.
-        console.text += "Discovered device\n\t"
-        console.text += "Device Name: " + devName! + "\n\t" + "Manfacturer ID: " + mfgID! + "\n\t" + "Device ID: " + deviceID! + "\n"
+        remoteDevices.addTextToConsole(text: "Discovered device\n\t")
+        remoteDevices.addTextToConsole(text: "Device Name: " + devName! + "\n\t" + "Manfacturer ID: " + mfgID! + "\n\t" + "Device ID: " + deviceID! + "\n")
         
         // Stop searching and remember device ID.
         mindWaveDevice.stopScanDevice()
-        discoveredDevices.append(deviceID!)
         
         // Get the configuration information from the Mind Wave Mobile.
         mindWaveDevice.readConfig()
         
         // Update teh user about what's going on.
         mindWaveMobileConnection.changeSignal(color: mediumColor)
-        console.text += "Attempting to connect to " + devName! + "\n"
+        remoteDevices.addTextToConsole(text: "Attempting to connect to " + devName! + "\n")
         
         // Attempt to connect to the discovered device.
         mindWaveDevice.connect(deviceID!)
+        targetConnectionDeviceId = deviceID!
+        targetConnectionDeviceId = devName
     }
     
     func didConnect() {
-        console.text += "Connection successful.\n"
+        remoteDevices.addTextToConsole(text: "Connection successful.\n")
         mindWaveMobileConnection.changeSignal(color: goodColor)
+        remoteDevices.connectedToDevice = true
+        targetConnectionDeviceId = ""
+        targetConnectionDeviceId = ""
     }
     
     func didDisconnect() {
-        console.text += "Disconnected from MindWave Mobile\n"
+        remoteDevices.addTextToConsole(text: "Disconnected from MindWave Mobile\n")
         mindWaveDevice.scanDevice()
-        console.text += "Searching for device...\n"
+        remoteDevices.addTextToConsole(text: "Searching for device...\n")
     }
 
     func eegBlink(_ blinkValue: Int32) {
@@ -141,20 +157,29 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
             .responseData { response in
                 if let error = response.error?.localizedDescription {
                     self.serverConnection.changeSignal(color: self.badColor)
-                    self.console.text += "Unable to make contact with Mind Journal Server: \n\t"
-                    self.console.text += "Server address: " + self.server + "\n\t"
-                    self.console.text += "End point: " + self.endPoint + "\n"
+                    remoteDevices.addTextToConsole(text: "Unable to make contact with Mind Journal Server: \n\t")
+                    remoteDevices.addTextToConsole(text: "Server address: " + self.server + "\n\t")
+                    remoteDevices.addTextToConsole(text: "End point: " + self.endPoint + "\n")
                     
                     // Reset server contact flag
-                    self.contactedServer = false
+                    remoteDevices.connectedToServer = false
+                    self.navigationItem.rightBarButtonItem = nil
+                    
                     return
                 }
                 switch response.result {
                 case .success:
-                    if !self.contactedServer {
-                        self.console.text += "Connected to server: \n\t"
-                        self.console.text += self.server + self.endPoint + "\n\t"
-                        self.contactedServer = true
+                    if !remoteDevices.connectedToServer {
+                        remoteDevices.addTextToConsole(text: "Connected to server: \n\t")
+                        remoteDevices.addTextToConsole(text: self.server + self.endPoint + "\n\t")
+                        remoteDevices.connectedToServer = true
+                        self.navigationItem.rightBarButtonItem = self.activity
+                        
+                        // Delay to allow user to see UI connection indictators, then move
+                        // to Activity View
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                            self.moveToActivityView()
+                        })
                     }
                     self.serverConnection.changeSignal(color: self.goodColor)
                 case .failure(let error):
@@ -162,6 +187,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, MWMDelegate, M
                 }
         }
 
+    }
+    
+    func moveToActivityView() {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "activity")
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
     func intitializeConnectionImages(views: [UIView]) {
