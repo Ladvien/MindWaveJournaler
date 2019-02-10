@@ -49,8 +49,8 @@
                     <connections>
                         <outlet property="activity" destination="klv-F2-HAN" id="75d-Hy-82r"/>
                         <outlet property="console" destination="6C9-fz-Gqx" id="0qY-eT-z9o"/>
-                        <outlet property="mindWaveMobileConnection" destination="BOb-ct-LOw" id="jxv-Z2-uRP"/>
-                        <outlet property="serverConnection" destination="OmD-ug-50N" id="bl2-he-UmY"/>
+                        <outlet property="mindWaveMobileConnectionIndicator" destination="BOb-ct-LOw" id="ptY-qo-3Nd"/>
+                        <outlet property="serverConnectionIndicator" destination="OmD-ug-50N" id="IEJ-53-OD5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
