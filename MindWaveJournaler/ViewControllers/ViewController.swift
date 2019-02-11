@@ -55,11 +55,12 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         remoteDevices.delegate = self
         if remoteDevices.serverConnection == .connected {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
+//            self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
 
@@ -114,9 +115,9 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
             serverConnectionIndicator.changeSignal(color: goodColor)
             if !segueUnderway {
                 segueUnderway = true
-                Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { (timer) in
+                Timer.scheduledTimer(withTimeInterval: 0.7, repeats: false) { (timer) in
                     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "activity") as! ActivityViewController
+                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "activity") as! ActivityCollectionViewController
                     remoteDevices.delegate = nextViewController
                     self.navigationController?.pushViewController(nextViewController, animated: true)
                 }

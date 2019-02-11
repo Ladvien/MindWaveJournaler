@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		79A42F2B027091B62AA9D9B7 /* Pods_MindWaveJournalerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B94A1EC1B7D2BB8D39A1F7C /* Pods_MindWaveJournalerUITests.framework */; };
-		B10519562210911B00D9C0B4 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10519552210911B00D9C0B4 /* ActivityViewController.swift */; };
+		B105195A22109E1600D9C0B4 /* ActivityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B105195922109E1600D9C0B4 /* ActivityCollectionViewController.swift */; };
+		B105196A2211957100D9C0B4 /* FAIcons in Resources */ = {isa = PBXBuildFile; fileRef = B10519682211951B00D9C0B4 /* FAIcons */; };
 		B137EFF6211F450B00E7E220 /* MindMobileEEGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B137EFF5211F450B00E7E220 /* MindMobileEEGSample.swift */; };
 		B1B10031221054E50035977C /* RemoteDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B10030221054E50035977C /* RemoteDevices.swift */; };
 		B1DAF4F521153F8B00CA0E06 /* libMWMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */; };
@@ -45,7 +46,8 @@
 		2143174AC3920E460D548DB5 /* Pods-MindWaveJournalerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournalerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournalerTests/Pods-MindWaveJournalerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2B94A1EC1B7D2BB8D39A1F7C /* Pods_MindWaveJournalerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MindWaveJournalerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEB240903EC08C4A43E5394F /* Pods-MindWaveJournaler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MindWaveJournaler.release.xcconfig"; path = "Pods/Target Support Files/Pods-MindWaveJournaler/Pods-MindWaveJournaler.release.xcconfig"; sourceTree = "<group>"; };
-		B10519552210911B00D9C0B4 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityViewController.swift; path = /Users/cthomasbrittain/Desktop/MindWaveJournaler/MindWaveJournaler/ActivityViewController.swift; sourceTree = "<absolute>"; };
+		B105195922109E1600D9C0B4 /* ActivityCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewController.swift; sourceTree = "<group>"; };
+		B10519682211951B00D9C0B4 /* FAIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FAIcons; sourceTree = SOURCE_ROOT; };
 		B137EFF5211F450B00E7E220 /* MindMobileEEGSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindMobileEEGSample.swift; sourceTree = "<group>"; };
 		B1B10030221054E50035977C /* RemoteDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDevices.swift; sourceTree = "<group>"; };
 		B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMWMSDK.a; sourceTree = "<group>"; };
@@ -113,8 +115,8 @@
 		B1051958221099E500D9C0B4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B10519552210911B00D9C0B4 /* ActivityViewController.swift */,
 				B1FE2B1E2114BCE000A1584B /* ViewController.swift */,
+				B105195922109E1600D9C0B4 /* ActivityCollectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -122,6 +124,7 @@
 		B1FE2B102114BCE000A1584B = {
 			isa = PBXGroup;
 			children = (
+				B10519682211951B00D9C0B4 /* FAIcons */,
 				B1FE2B552114BF7300A1584B /* MindWaveJournaler-Bridging-Header.h */,
 				B1FE2B1B2114BCE000A1584B /* MindWaveJournaler */,
 				B1FE2B332114BCE000A1584B /* MindWaveJournalerTests */,
@@ -307,6 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B105196A2211957100D9C0B4 /* FAIcons in Resources */,
 				B1FE2B2A2114BCE000A1584B /* LaunchScreen.storyboard in Resources */,
 				B1FE2B272114BCE000A1584B /* Assets.xcassets in Resources */,
 				B1FE2B222114BCE000A1584B /* Main.storyboard in Resources */,
@@ -410,7 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1FE2B1F2114BCE000A1584B /* ViewController.swift in Sources */,
-				B10519562210911B00D9C0B4 /* ActivityViewController.swift in Sources */,
+				B105195A22109E1600D9C0B4 /* ActivityCollectionViewController.swift in Sources */,
 				B1FE2B252114BCE000A1584B /* MindWaveJournaler.xcdatamodeld in Sources */,
 				B1B10031221054E50035977C /* RemoteDevices.swift in Sources */,
 				B1FE2B1D2114BCE000A1584B /* AppDelegate.swift in Sources */,

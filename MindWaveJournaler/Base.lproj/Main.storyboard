@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="fa-regular-400.ttf">
+            <string>FontAwesome5Free-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -46,7 +51,7 @@
                     <navigationItem key="navigationItem" id="VSA-GY-xkQ">
                         <barButtonItem key="rightBarButtonItem" title="Activity" id="klv-F2-HAN">
                             <connections>
-                                <segue destination="AZI-mR-vWG" kind="show" id="mmI-8r-fO2"/>
+                                <segue destination="7TD-OQ-CLW" kind="show" id="4iU-hj-PsR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -61,20 +66,60 @@
             </objects>
             <point key="canvasLocation" x="1076" y="111.99400299850076"/>
         </scene>
-        <!--Activity View Controller-->
-        <scene sceneID="o6e-jS-2EU">
+        <!--Activity Collection View Controller-->
+        <scene sceneID="Qb0-d8-D69">
             <objects>
-                <viewController storyboardIdentifier="activity" id="AZI-mR-vWG" customClass="ActivityViewController" customModule="MindWaveJournaler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="SeH-fc-OVZ">
+                <collectionViewController storyboardIdentifier="activity" id="7TD-OQ-CLW" customClass="ActivityCollectionViewController" customModule="MindWaveJournaler" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="dGz-Vm-yIb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="8tM-es-hJx"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3db-NU-PLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8Dc-Fx-9Lj">
+                            <size key="itemSize" width="154" height="130"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activityCell" id="1vy-6t-pEj">
+                                <rect key="frame" x="10" y="10" width="154" height="130"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="154" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RH-NV-5Sg">
+                                            <rect key="frame" x="5" y="7" width="140" height="17"/>
+                                            <fontDescription key="fontDescription" name="FontAwesome5Free-Regular" family="Font Awesome 5 Free" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tVy-ux-Wrg">
+                                            <rect key="frame" x="32" y="31" width="90" height="90"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3RH-NV-5Sg" firstAttribute="leading" secondItem="1vy-6t-pEj" secondAttribute="leading" constant="5" id="0zt-bP-qhR"/>
+                                    <constraint firstAttribute="trailing" secondItem="3RH-NV-5Sg" secondAttribute="trailing" constant="9" id="BCM-NS-mms"/>
+                                    <constraint firstItem="3RH-NV-5Sg" firstAttribute="top" secondItem="1vy-6t-pEj" secondAttribute="top" constant="7" id="QaF-fu-3Kg"/>
+                                </constraints>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="7TD-OQ-CLW" id="PXP-MR-RBy"/>
+                            <outlet property="delegate" destination="7TD-OQ-CLW" id="cCt-o3-ji5"/>
+                        </connections>
+                    </collectionView>
+                    <connections>
+                        <outlet property="activitiesCollectionView" destination="dGz-Vm-yIb" id="ReM-nI-ElW"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dmq-PJ-Tbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2018" y="112"/>
+            <point key="canvasLocation" x="2237.5999999999999" y="111.99400299850076"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lBF-HW-xe6">
