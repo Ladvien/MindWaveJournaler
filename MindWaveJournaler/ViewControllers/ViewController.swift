@@ -17,16 +17,17 @@ import Alamofire
 
 let remoteDevices = RemoteDevices()
 
+// Colors
+let primary = UIColor(rgb: 0x00ACEA)
+let secondary = UIColor(rgb: 0xF4B844)
+let tertierary = UIColor(rgb: 0x00EFD1)
+let goodColor = UIColor(rgb: 0xABE188)
+let mediumColor = UIColor(rgb: 0xF4B844)
+let badColor = UIColor(rgb: 0xEE6352)
+
+
 class ViewController: UIViewController, RemoteDevicesDelegate {
     
-    // Colors
-    let primary = UIColor(rgb: 0x00ACEA)
-    let secondary = UIColor(rgb: 0xF4B844)
-    let tertierary = UIColor(rgb: 0x00EFD1)
-    let goodColor = UIColor(rgb: 0xABE188)
-    let mediumColor = UIColor(rgb: 0xF4B844)
-    let badColor = UIColor(rgb: 0xEE6352)
-
     // Flags
     var segueUnderway = false
 

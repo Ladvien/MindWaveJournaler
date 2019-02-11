@@ -14,6 +14,7 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
     
     var collectionLabels = ["Add Activity", "Else", "Something"]
     var collectionImages = [UIImage()]
+    let colors = [primary, secondary, tertierary, goodColor, mediumColor, badColor]
     
     @IBOutlet var activitiesCollectionView: UICollectionView!
     
@@ -33,8 +34,7 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        // Do any additional setup after loading the view.
-
+        // Load icon images.
         for i in 0...300 {
             if let image = UIImage(named: "activity_" + String(i)) {
                 collectionImages.append(image)
@@ -73,7 +73,10 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
         if let imageView = cell.viewWithTag(200) as? UIImageView {
             imageView.image = collectionImages[indexPath.row]
         }
-    
+        let randNum = Int.random(in: 0...colors.count - 1)
+        cell.backgroundColor = colors[randNum]
+        
+        
         // Configure the cell
     
         return cell
