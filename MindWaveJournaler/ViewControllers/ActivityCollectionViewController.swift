@@ -12,6 +12,10 @@ private let reuseIdentifier = "Cell"
 
 class ActivityCollectionViewController: UICollectionViewController, RemoteDevicesDelegate {
     
+    // Get user settings wrapper
+    let userSettings = UserSettings()
+    var activityNames: [String] = []
+    
     var collectionLabels = ["Add Activity", "Else", "Something"]
     var collectionImages = [UIImage()]
     let colors = [primary, secondary, tertierary, goodColor, mediumColor, badColor]
@@ -33,14 +37,15 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
 
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        
+        activityNames = userSettings.getListOfActivityNames()
+        
         // Load icon images.
         for i in 0...300 {
             if let image = UIImage(named: "activity_" + String(i)) {
                 collectionImages.append(image)
             }
         }
-
     }
 
     /*
@@ -62,16 +67,20 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return collectionLabels.count
+        return activityNames.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "activityCell", for: indexPath)
         if let label = cell.viewWithTag(100) as? UILabel {
-            label.text = collectionLabels[indexPath.row]
+            label.text = activityNames[indexPath.row]
         }
         if let imageView = cell.viewWithTag(200) as? UIImageView {
-            imageView.image = collectionImages[indexPath.row]
+            if let image = UIImage(named: userSettings.getImageName(activityName: activityNames[indexPath.row])) {
+                imageView.image = image
+                imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
+                imageView.tintColor = UIColor.green
+            }
         }
         let randNum = Int.random(in: 0...colors.count - 1)
         cell.backgroundColor = colors[randNum]

@@ -9,11 +9,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="fa-regular-400.ttf">
-            <string>FontAwesome5Free-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -82,30 +77,34 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activityCell" id="1vy-6t-pEj">
-                                <rect key="frame" x="10" y="10" width="154" height="130"/>
+                                <rect key="frame" x="10" y="10" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="154" height="130"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RH-NV-5Sg">
-                                            <rect key="frame" x="5" y="7" width="140" height="17"/>
-                                            <fontDescription key="fontDescription" name="FontAwesome5Free-Regular" family="Font Awesome 5 Free" pointSize="17"/>
+                                            <rect key="frame" x="5" y="7" width="140" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tVy-ux-Wrg">
-                                            <rect key="frame" x="32" y="31" width="90" height="90"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVy-ux-Wrg">
+                                            <rect key="frame" x="30" y="40" width="90" height="90"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="3RH-NV-5Sg" firstAttribute="leading" secondItem="1vy-6t-pEj" secondAttribute="leading" constant="5" id="0zt-bP-qhR"/>
-                                    <constraint firstAttribute="trailing" secondItem="3RH-NV-5Sg" secondAttribute="trailing" constant="9" id="BCM-NS-mms"/>
+                                    <constraint firstAttribute="trailing" secondItem="tVy-ux-Wrg" secondAttribute="trailing" constant="30" id="4nM-sZ-cI7"/>
+                                    <constraint firstAttribute="trailing" secondItem="3RH-NV-5Sg" secondAttribute="trailing" constant="5" id="BCM-NS-mms"/>
                                     <constraint firstItem="3RH-NV-5Sg" firstAttribute="top" secondItem="1vy-6t-pEj" secondAttribute="top" constant="7" id="QaF-fu-3Kg"/>
+                                    <constraint firstItem="tVy-ux-Wrg" firstAttribute="top" secondItem="3RH-NV-5Sg" secondAttribute="bottom" constant="13" id="WjU-PF-vKJ"/>
+                                    <constraint firstItem="tVy-ux-Wrg" firstAttribute="leading" secondItem="1vy-6t-pEj" secondAttribute="leading" constant="30" id="ga2-Nt-rmp"/>
+                                    <constraint firstAttribute="bottom" secondItem="tVy-ux-Wrg" secondAttribute="bottom" constant="20" id="hIw-Z6-cPL"/>
                                 </constraints>
+                                <size key="customSize" width="150" height="150"/>
                             </collectionViewCell>
                         </cells>
                         <connections>

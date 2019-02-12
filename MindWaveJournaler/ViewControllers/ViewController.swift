@@ -28,10 +28,12 @@ let badColor = UIColor(rgb: 0xEE6352)
 
 class ViewController: UIViewController, RemoteDevicesDelegate {
     
+    // Store for user settings
+    let settings = UserSettings()
+    
     // Flags
     var segueUnderway = false
 
-    
     // Outlets
     var connectionViews: [UIView] = []
     @IBOutlet weak var mindWaveMobileConnectionIndicator: UIView!
@@ -61,7 +63,7 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
         if remoteDevices.serverConnection == .connected {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
-//            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
 

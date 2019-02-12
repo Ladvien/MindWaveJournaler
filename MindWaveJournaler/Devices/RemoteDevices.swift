@@ -70,6 +70,7 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
         switch central.state {
         case CBManagerState.poweredOn:
             mindWaveDevice.scanDevice()
+            addTextToConsole(text: "Searching for Mind Wave Mobile headset.\n")
             deviceConnection = .searching
         default:
             addTextToConsole(text: "Bluetooth is turned off.\n")
