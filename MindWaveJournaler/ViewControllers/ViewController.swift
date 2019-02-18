@@ -17,6 +17,9 @@ import Alamofire
 
 let remoteDevices = RemoteDevices()
 
+// Number of Activity Icons
+let numberOfActivityIcons = 368
+
 // Colors
 let primary = UIColor(rgb: 0x00ACEA)
 let secondary = UIColor(rgb: 0xF4B844)
@@ -27,9 +30,6 @@ let badColor = UIColor(rgb: 0xEE6352)
 
 
 class ViewController: UIViewController, RemoteDevicesDelegate {
-    
-    // Store for user settings
-    let settings = UserSettings()
     
     // Flags
     var segueUnderway = false

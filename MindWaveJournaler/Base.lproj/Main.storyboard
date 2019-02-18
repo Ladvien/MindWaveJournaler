@@ -80,7 +80,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activityCell" id="1vy-6t-pEj">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activityCell" id="1vy-6t-pEj" customClass="ActivityCollectionViewCell" customModule="MindWaveJournaler" customModuleProvider="target">
                                 <rect key="frame" x="10" y="10" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -110,7 +110,8 @@
                                 </constraints>
                                 <size key="customSize" width="150" height="150"/>
                                 <connections>
-                                    <segue destination="ZHM-Bu-JDU" kind="show" id="rGp-7H-2AX"/>
+                                    <outlet property="activityImage" destination="tVy-ux-Wrg" id="v8e-Sm-pny"/>
+                                    <outlet property="activityLabel" destination="3RH-NV-5Sg" id="Gdq-25-JpW"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -127,11 +128,11 @@
             </objects>
             <point key="canvasLocation" x="1942" y="112"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Activity View Controller-->
         <scene sceneID="v6R-BR-X48">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDI-BU-MPs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="ZHM-Bu-JDU" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createActivity" id="ZHM-Bu-JDU" customClass="CreateActivityViewController" customModule="MindWaveJournaler" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YQr-Mb-fGc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -170,10 +171,22 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qp8-Jo-PTd">
+                                <rect key="frame" x="64" y="497" width="246" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="create_button" backgroundImage="button_highlight"/>
+                                <connections>
+                                    <action selector="create:" destination="ZHM-Bu-JDU" eventType="touchUpInside" id="BMt-fD-3jh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="jyR-Hp-c2I"/>
                     </view>
+                    <connections>
+                        <outlet property="activityImage" destination="Ioz-m7-eil" id="uME-zT-c8M"/>
+                        <outlet property="activityLabel" destination="5EZ-gb-Ifn" id="CJR-En-eDX"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2749.5999999999999" y="111.99400299850076"/>
@@ -196,10 +209,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="111.99400299850076"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Icon Select Collection View Controller-->
         <scene sceneID="CpF-xT-4gr">
             <objects>
-                <collectionViewController id="xKP-Zb-JOm" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="selectIcon" id="xKP-Zb-JOm" customClass="IconSelectCollectionViewController" customModule="MindWaveJournaler" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="r5c-jD-atN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -211,37 +224,28 @@
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                         </collectionViewFlowLayout>
                         <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="general" id="Pll-mX-jCX">
-                            <rect key="frame" x="0.0" y="-64" width="375" height="667"/>
+                            <rect key="frame" x="0.0" y="-20" width="375" height="667"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="iconCell" id="2i3-rh-aK9">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="iconCell" id="2i3-rh-aK9" customClass="ActivityCollectionViewCell" customModule="MindWaveJournaler" customModuleProvider="target">
                                 <rect key="frame" x="10" y="10" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsP-Z7-Ide">
-                                            <rect key="frame" x="5" y="7" width="140" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qig-4e-hdW">
-                                            <rect key="frame" x="30" y="40" width="90" height="90"/>
+                                            <rect key="frame" x="30" y="30" width="90" height="90"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Qig-4e-hdW" firstAttribute="leading" secondItem="2i3-rh-aK9" secondAttribute="leading" constant="30" id="QnF-zw-13r"/>
-                                    <constraint firstItem="gsP-Z7-Ide" firstAttribute="top" secondItem="2i3-rh-aK9" secondAttribute="top" constant="7" id="Rcb-oi-TQX"/>
-                                    <constraint firstItem="gsP-Z7-Ide" firstAttribute="leading" secondItem="2i3-rh-aK9" secondAttribute="leading" constant="5" id="ShH-Fg-QPx"/>
-                                    <constraint firstAttribute="bottom" secondItem="Qig-4e-hdW" secondAttribute="bottom" constant="20" id="Xgg-8V-EY4"/>
-                                    <constraint firstAttribute="trailing" secondItem="gsP-Z7-Ide" secondAttribute="trailing" constant="5" id="bBE-Jj-2zo"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qig-4e-hdW" secondAttribute="trailing" constant="30" id="g18-DV-aWe"/>
-                                    <constraint firstItem="Qig-4e-hdW" firstAttribute="top" secondItem="gsP-Z7-Ide" secondAttribute="bottom" constant="13" id="rld-sV-aoI"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qig-4e-hdW" secondAttribute="bottom" constant="30" id="GVH-Do-vFS"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qig-4e-hdW" secondAttribute="trailing" constant="30" id="I5H-Rf-r04"/>
+                                    <constraint firstItem="Qig-4e-hdW" firstAttribute="top" secondItem="2i3-rh-aK9" secondAttribute="top" constant="30" id="XJx-Jm-lNe"/>
+                                    <constraint firstItem="Qig-4e-hdW" firstAttribute="leading" secondItem="2i3-rh-aK9" secondAttribute="leading" constant="30" id="cXN-zF-UxE"/>
                                 </constraints>
                                 <size key="customSize" width="150" height="150"/>
                             </collectionViewCell>
@@ -251,6 +255,9 @@
                             <outlet property="delegate" destination="xKP-Zb-JOm" id="jBk-J7-Biq"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <outlet property="iconCollectionView" destination="r5c-jD-atN" id="h0h-3h-3wc"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2nT-xw-4Nb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -259,7 +266,9 @@
     </scenes>
     <resources>
         <image name="activity_150" width="124" height="125"/>
+        <image name="button_highlight" width="246" height="68"/>
         <image name="connection" width="375" height="667"/>
+        <image name="create_button" width="246" height="68"/>
         <image name="general" width="375" height="667"/>
     </resources>
 </document>

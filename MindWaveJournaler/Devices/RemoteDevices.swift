@@ -64,8 +64,6 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
         deviceConnection = .unknown
     }
     
-
-    
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case CBManagerState.poweredOn:
@@ -180,5 +178,8 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
         }
     }
     
+    public func setActivity(activity: String) {
+        sampleInProcess.activity = activity
+    }
     
 }

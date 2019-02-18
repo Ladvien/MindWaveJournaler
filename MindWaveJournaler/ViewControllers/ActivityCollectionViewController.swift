@@ -10,14 +10,12 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class ActivityCollectionViewController: UICollectionViewController, RemoteDevicesDelegate {
+class ActivityCollectionViewController: UICollectionViewController, RemoteDevicesDelegate, UIGestureRecognizerDelegate {
     
     // Get user settings wrapper
-    let userSettings = UserSettings()
-    var activityNames: [String] = []
+    var activitiesSettings = ActivitiesSettings()
+    var activities: [String:String] = [:]
     
-    var collectionLabels = ["Add Activity", "Else", "Something"]
-    var collectionImages = [UIImage()]
     let colors = [primary, secondary, tertierary, goodColor, mediumColor, badColor]
     
     @IBOutlet var activitiesCollectionView: UICollectionView!
@@ -31,32 +29,50 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
         let width = (view.frame.size.width - 40) / 2
         let layout = activitiesCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: width, height: width)
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        activityNames = userSettings.getListOfActivityNames()
-        
-        // Load icon images.
-        for i in 0...300 {
-            if let image = UIImage(named: "activity_" + String(i)) {
-                collectionImages.append(image)
-            }
+        // Long-press registration
+        let lpgr : UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer:)))
+        lpgr.minimumPressDuration = 0.3
+        lpgr.delegate = self
+        lpgr.delaysTouchesBegan = true
+        self.collectionView?.addGestureRecognizer(lpgr)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        activitiesSettings = ActivitiesSettings()
+        activities = activitiesSettings.getActivities()
+        activitiesCollectionView.reloadData()
+    }
+    
+    @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer){
+        // If the Long-Press Gesture Started
+        if (gestureRecognizer.state != UIGestureRecognizerState.began){
+            // Get point then indexPath of the item prssed.
+            let p = gestureRecognizer.location(in: self.collectionView)
+            let indexPath : IndexPath = (self.collectionView?.indexPathForItem(at: p))! as IndexPath
+
+            // Get Activity
+            let activityName = Array(activities.keys)[indexPath.row]
+            let refreshAlert = UIAlertController(title: "Delete Activity", message: "Delete this activity?", preferredStyle: UIAlertControllerStyle.alert)
+            
+            refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+                self.activitiesSettings.deleteActivity(key: activityName)
+                self.activitiesSettings = ActivitiesSettings()
+                self.activities = self.activitiesSettings.getActivities()
+                self.activitiesCollectionView.reloadData()
+            }))
+            
+            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                print("not deleted")
+            }))
+            
+            present(refreshAlert, animated: true, completion: nil)
+            return
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -67,19 +83,23 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return activityNames.count
+        return activities.keys.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let activityNames = Array(activities.keys)
+        print(activityNames)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "activityCell", for: indexPath)
         if let label = cell.viewWithTag(100) as? UILabel {
             label.text = activityNames[indexPath.row]
         }
         if let imageView = cell.viewWithTag(200) as? UIImageView {
-            if let image = UIImage(named: userSettings.getImageName(activityName: activityNames[indexPath.row])) {
-                imageView.image = image
-                imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
-                imageView.tintColor = UIColor.green
+            if let imageName = activities[activityNames[indexPath.row]] {
+                if let image = UIImage(named: imageName) {
+                    imageView.image = image
+                    imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
+                    imageView.tintColor = UIColor.green
+                }
             }
         }
         let randNum = Int.random(in: 0...colors.count - 1)
@@ -90,36 +110,21 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
     
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //  Check if Add button, otherwise set Selected Action.
+        print(indexPath.row)
+        print(activities)
+        let activityName = Array(activities.keys)[indexPath.row].lowercased()
+        switch activityName {
+            case "add":
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "createActivity") as! CreateActivityViewController
+                self.navigationController?.pushViewController(nextViewController, animated: true)
+                break
+            default:
+                remoteDevices.setActivity(activity: activityName)
+                break
+            }
     }
-    */
-
 }

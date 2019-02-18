@@ -13,8 +13,11 @@
 		B137EFF6211F450B00E7E220 /* MindMobileEEGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B137EFF5211F450B00E7E220 /* MindMobileEEGSample.swift */; };
 		B1B10031221054E50035977C /* RemoteDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B10030221054E50035977C /* RemoteDevices.swift */; };
 		B1DAF4F521153F8B00CA0E06 /* libMWMSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */; };
-		B1E2DEA22212470B001F3CE0 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2DEA12212470B001F3CE0 /* UserSettings.swift */; };
-		B1E2DEA622124C1F001F3CE0 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2DEA522124C1F001F3CE0 /* Activity.swift */; };
+		B1E2DEA22212470B001F3CE0 /* ActivitiesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2DEA12212470B001F3CE0 /* ActivitiesSettings.swift */; };
+		B1E2DEA92218DF24001F3CE0 /* CreateActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2DEA82218DF24001F3CE0 /* CreateActivityViewController.swift */; };
+		B1E2DEAB2218EC46001F3CE0 /* IconSelectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2DEAA2218EC46001F3CE0 /* IconSelectCollectionViewController.swift */; };
+		B1E2DEAF221A5067001F3CE0 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2DEAE221A5067001F3CE0 /* Activity.swift */; };
+		B1E2DEB1221A8057001F3CE0 /* ActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2DEB0221A8057001F3CE0 /* ActivityCollectionViewCell.swift */; };
 		B1FE2B1D2114BCE000A1584B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */; };
 		B1FE2B1F2114BCE000A1584B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE2B1E2114BCE000A1584B /* ViewController.swift */; };
 		B1FE2B222114BCE000A1584B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1FE2B202114BCE000A1584B /* Main.storyboard */; };
@@ -53,8 +56,11 @@
 		B137EFF5211F450B00E7E220 /* MindMobileEEGSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindMobileEEGSample.swift; sourceTree = "<group>"; };
 		B1B10030221054E50035977C /* RemoteDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDevices.swift; sourceTree = "<group>"; };
 		B1DAF4F421153F8B00CA0E06 /* libMWMSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMWMSDK.a; sourceTree = "<group>"; };
-		B1E2DEA12212470B001F3CE0 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		B1E2DEA522124C1F001F3CE0 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		B1E2DEA12212470B001F3CE0 /* ActivitiesSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesSettings.swift; sourceTree = "<group>"; };
+		B1E2DEA82218DF24001F3CE0 /* CreateActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateActivityViewController.swift; sourceTree = "<group>"; };
+		B1E2DEAA2218EC46001F3CE0 /* IconSelectCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectCollectionViewController.swift; sourceTree = "<group>"; };
+		B1E2DEAE221A5067001F3CE0 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		B1E2DEB0221A8057001F3CE0 /* ActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1FE2B192114BCE000A1584B /* MindWaveJournaler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MindWaveJournaler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1FE2B1E2114BCE000A1584B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -119,9 +125,11 @@
 		B1051958221099E500D9C0B4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B1E2DEA722124C26001F3CE0 /* DataFiles */,
+				B1E2DEB0221A8057001F3CE0 /* ActivityCollectionViewCell.swift */,
 				B1FE2B1E2114BCE000A1584B /* ViewController.swift */,
 				B105195922109E1600D9C0B4 /* ActivityCollectionViewController.swift */,
+				B1E2DEA82218DF24001F3CE0 /* CreateActivityViewController.swift */,
+				B1E2DEAA2218EC46001F3CE0 /* IconSelectCollectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -129,8 +137,8 @@
 		B1E2DEA722124C26001F3CE0 /* DataFiles */ = {
 			isa = PBXGroup;
 			children = (
-				B1E2DEA522124C1F001F3CE0 /* Activity.swift */,
-				B1E2DEA12212470B001F3CE0 /* UserSettings.swift */,
+				B1E2DEAE221A5067001F3CE0 /* Activity.swift */,
+				B1E2DEA12212470B001F3CE0 /* ActivitiesSettings.swift */,
 			);
 			path = DataFiles;
 			sourceTree = "<group>";
@@ -163,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				B1FE2B1C2114BCE000A1584B /* AppDelegate.swift */,
+				B1E2DEA722124C26001F3CE0 /* DataFiles */,
 				B1051958221099E500D9C0B4 /* ViewControllers */,
 				B1051957221099CD00D9C0B4 /* Devices */,
 				B1FE2B202114BCE000A1584B /* Main.storyboard */,
@@ -427,13 +436,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1E2DEAF221A5067001F3CE0 /* Activity.swift in Sources */,
 				B1FE2B1F2114BCE000A1584B /* ViewController.swift in Sources */,
+				B1E2DEA92218DF24001F3CE0 /* CreateActivityViewController.swift in Sources */,
+				B1E2DEB1221A8057001F3CE0 /* ActivityCollectionViewCell.swift in Sources */,
 				B105195A22109E1600D9C0B4 /* ActivityCollectionViewController.swift in Sources */,
 				B1FE2B252114BCE000A1584B /* MindWaveJournaler.xcdatamodeld in Sources */,
 				B1B10031221054E50035977C /* RemoteDevices.swift in Sources */,
-				B1E2DEA22212470B001F3CE0 /* UserSettings.swift in Sources */,
+				B1E2DEA22212470B001F3CE0 /* ActivitiesSettings.swift in Sources */,
 				B1FE2B1D2114BCE000A1584B /* AppDelegate.swift in Sources */,
-				B1E2DEA622124C1F001F3CE0 /* Activity.swift in Sources */,
+				B1E2DEAB2218EC46001F3CE0 /* IconSelectCollectionViewController.swift in Sources */,
 				B137EFF6211F450B00E7E220 /* MindMobileEEGSample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

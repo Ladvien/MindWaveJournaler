@@ -14,11 +14,8 @@ public protocol MindMobileEEGSampleDelegate {
 }
 
 public class MindMobileEEGSample: NSObject {
-    
-    public var delegate: MindMobileEEGSampleDelegate?
-    
+
     private var time = ""
-    
     private var theta: Int32 = -1
     private var delta: Int32 = -1
     private var lowAlpha: Int32 = -1
@@ -31,6 +28,11 @@ public class MindMobileEEGSample: NSObject {
     private var meditation: Int32 = -1
     private var blink: Int32 = -1
     private var poorSignal: Int32 = -1
+    
+    
+    // Public properties
+    public var delegate: MindMobileEEGSampleDelegate?
+    public var activity: String = ""
     
     override init() {
         super.init()
@@ -127,7 +129,8 @@ public class MindMobileEEGSample: NSObject {
             "attention": attention,
             "meditation": meditation,
             "blink": blink,
-            "poorSignal": poorSignal
+            "poorSignal": poorSignal,
+            "activity": activity
         ]
         return parameters
     }
