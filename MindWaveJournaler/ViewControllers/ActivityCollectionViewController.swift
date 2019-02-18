@@ -42,9 +42,19 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        // Add Create Activity buttton.
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivityNavButtonTap))
+        
         activitiesSettings = ActivitiesSettings()
         activities = activitiesSettings.getActivities()
         activitiesCollectionView.reloadData()
+    }
+    
+    @objc func createActivityNavButtonTap()  {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "createActivity") as! CreateActivityViewController
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
     @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer){
@@ -92,39 +102,23 @@ class ActivityCollectionViewController: UICollectionViewController, RemoteDevice
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "activityCell", for: indexPath)
         if let label = cell.viewWithTag(100) as? UILabel {
             label.text = activityNames[indexPath.row]
+            label.textColor = .white
         }
         if let imageView = cell.viewWithTag(200) as? UIImageView {
             if let imageName = activities[activityNames[indexPath.row]] {
                 if let image = UIImage(named: imageName) {
                     imageView.image = image
                     imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
-                    imageView.tintColor = UIColor.green
+                    imageView.tintColor = .white
                 }
             }
         }
-        let randNum = Int.random(in: 0...colors.count - 1)
-        cell.backgroundColor = colors[randNum]
-        
-        
-        // Configure the cell
-    
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //  Check if Add button, otherwise set Selected Action.
-        print(indexPath.row)
-        print(activities)
         let activityName = Array(activities.keys)[indexPath.row].lowercased()
-        switch activityName {
-            case "add":
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "createActivity") as! CreateActivityViewController
-                self.navigationController?.pushViewController(nextViewController, animated: true)
-                break
-            default:
-                remoteDevices.setActivity(activity: activityName)
-                break
-            }
+        remoteDevices.setActivity(activity: activityName)
     }
 }

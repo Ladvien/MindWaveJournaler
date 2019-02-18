@@ -22,7 +22,7 @@ let numberOfActivityIcons = 368
 
 // Colors
 let primary = UIColor(rgb: 0x00ACEA)
-let secondary = UIColor(rgb: 0xF4B844)
+let secondary = UIColor(rgb: 0x00EFD1)
 let tertierary = UIColor(rgb: 0x00EFD1)
 let goodColor = UIColor(rgb: 0xABE188)
 let mediumColor = UIColor(rgb: 0xF4B844)
@@ -55,6 +55,11 @@ class ViewController: UIViewController, RemoteDevicesDelegate {
         
         // Start logging.
         console.textColor = primary
+        
+        // Setup Navigation Controller
+        navigationController?.navigationBar.barTintColor = badColor
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -87,6 +87,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity_background_tile" highlightedImage="activity_background_tile" translatesAutoresizingMaskIntoConstraints="NO" id="AVt-qM-ha4">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RH-NV-5Sg">
                                             <rect key="frame" x="5" y="7" width="140" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -98,19 +103,23 @@
                                         </imageView>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="3RH-NV-5Sg" firstAttribute="leading" secondItem="1vy-6t-pEj" secondAttribute="leading" constant="5" id="0zt-bP-qhR"/>
                                     <constraint firstAttribute="trailing" secondItem="tVy-ux-Wrg" secondAttribute="trailing" constant="30" id="4nM-sZ-cI7"/>
                                     <constraint firstAttribute="trailing" secondItem="3RH-NV-5Sg" secondAttribute="trailing" constant="5" id="BCM-NS-mms"/>
+                                    <constraint firstItem="AVt-qM-ha4" firstAttribute="top" secondItem="1vy-6t-pEj" secondAttribute="top" id="IHQ-cF-2T6"/>
+                                    <constraint firstItem="AVt-qM-ha4" firstAttribute="centerX" secondItem="3RH-NV-5Sg" secondAttribute="centerX" id="JZb-nt-ebw"/>
+                                    <constraint firstItem="AVt-qM-ha4" firstAttribute="leading" secondItem="1vy-6t-pEj" secondAttribute="leading" id="KXg-tT-FZF"/>
                                     <constraint firstItem="3RH-NV-5Sg" firstAttribute="top" secondItem="1vy-6t-pEj" secondAttribute="top" constant="7" id="QaF-fu-3Kg"/>
                                     <constraint firstItem="tVy-ux-Wrg" firstAttribute="top" secondItem="3RH-NV-5Sg" secondAttribute="bottom" constant="13" id="WjU-PF-vKJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="AVt-qM-ha4" secondAttribute="bottom" id="Yyh-G9-vQA"/>
                                     <constraint firstItem="tVy-ux-Wrg" firstAttribute="leading" secondItem="1vy-6t-pEj" secondAttribute="leading" constant="30" id="ga2-Nt-rmp"/>
                                     <constraint firstAttribute="bottom" secondItem="tVy-ux-Wrg" secondAttribute="bottom" constant="20" id="hIw-Z6-cPL"/>
                                 </constraints>
                                 <size key="customSize" width="150" height="150"/>
                                 <connections>
-                                    <outlet property="activityImage" destination="tVy-ux-Wrg" id="v8e-Sm-pny"/>
                                     <outlet property="activityLabel" destination="3RH-NV-5Sg" id="Gdq-25-JpW"/>
                                 </connections>
                             </collectionViewCell>
@@ -126,7 +135,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dmq-PJ-Tbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1942" y="112"/>
+            <point key="canvasLocation" x="1941.5999999999999" y="111.99400299850076"/>
         </scene>
         <!--Create Activity View Controller-->
         <scene sceneID="v6R-BR-X48">
@@ -150,9 +159,13 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0GX-NN-dsb">
-                                <rect key="frame" x="45" y="116" width="285" height="313"/>
+                                <rect key="frame" x="45" y="116" width="279" height="279"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activity_background_tile" translatesAutoresizingMaskIntoConstraints="NO" id="Ajy-XC-Ij9">
+                                        <rect key="frame" x="0.0" y="0.0" width="279" height="279"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Activity Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5EZ-gb-Ifn">
                                         <rect key="frame" x="24" y="31" width="236.90202541789114" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -161,15 +174,18 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ioz-m7-eil">
-                                        <rect key="frame" x="38" y="93" width="207.86242230214964" height="191"/>
+                                        <rect key="frame" x="52" y="86" width="174" height="153"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="activity_150"/>
                                         <connections>
                                             <segue destination="xKP-Zb-JOm" kind="show" id="9XR-QH-BtG"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qp8-Jo-PTd">
                                 <rect key="frame" x="64" y="497" width="246" height="68"/>
@@ -266,6 +282,7 @@
     </scenes>
     <resources>
         <image name="activity_150" width="124" height="125"/>
+        <image name="activity_background_tile" width="300" height="300"/>
         <image name="button_highlight" width="246" height="68"/>
         <image name="connection" width="375" height="667"/>
         <image name="create_button" width="246" height="68"/>
