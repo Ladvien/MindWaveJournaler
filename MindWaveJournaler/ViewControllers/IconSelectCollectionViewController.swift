@@ -30,7 +30,6 @@ class IconSelectCollectionViewController: UICollectionViewController {
         // Load icon images.
         for i in 1...numberOfActivityIcons {
             if let image = UIImage(named: "activity_" + String(i)) {
-                print(i)
                 collectionImages.append(image)
             }
         }
@@ -49,6 +48,8 @@ class IconSelectCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath)
         if let imageView = cell.viewWithTag(200) as? UIImageView {
             imageView.image = collectionImages[indexPath.row]
+            imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
+            imageView.tintColor = .white
         }
         return cell
     }
