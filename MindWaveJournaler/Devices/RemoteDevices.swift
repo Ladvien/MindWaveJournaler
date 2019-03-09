@@ -35,6 +35,9 @@ public protocol RemoteDevicesDelegate {
 
 public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, MindMobileEEGSampleDelegate {
     
+    var start: Date = Date()
+    var counter = 0
+    
     public var delegate: RemoteDevicesDelegate?
     public var mindWaveDevice = MWMDevice()
     public var sampleInProcess = MindMobileEEGSample()
@@ -119,10 +122,19 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
     
     public func didConnect() {
         deviceConnection = .connected
+        print(mindWaveDevice.readConfig())
+//        mindWaveDevice.enableConsoleLog(true)
+//        mindWaveDevice.writeConfig(TGMWMConfigCMD.init(rawValue: 0x63)!)
+        print(mindWaveDevice.readConfig())
         addTextToConsole(text: "Connection successful.\n")
         targetConnectionDeviceId = ""
         targetConnectionDeviceId = ""
         delegate?.update(deviceConnection: deviceConnection, serverConnection: serverConnection, deviceSignalStrength: mindMobileSignalStrength, log: logText)
+    }
+    
+    public func mwmBaudRate(_ baudRate: Int32, notchFilter: Int32) {
+        print("Baud Rate: " + String(baudRate))
+        print("Notch Filter: " + String(notchFilter))
     }
     
     public func eegBlink(_ blinkValue: Int32) {
@@ -131,6 +143,21 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
     
     public func eegSample(_ sample: Int32) {
         // Not currently used
+        counter+=1
+        if sample == 85 {
+            print("EXEC")
+            print(counter)
+        }
+        if counter > 20 {
+            counter = 0
+            let elapsed = Date().timeIntervalSince(start)
+            start = Date()
+            print("New Sample :" + String(elapsed))
+        }
+////        print(samplve)
+//        let n = sample
+//        var st = String(format:"%02X", n)
+//        print(st)
     }
     
     public func eSense(_ poorSignal: Int32, attention: Int32, meditation: Int32) {
@@ -139,6 +166,7 @@ public class RemoteDevices: NSObject, CBCentralManagerDelegate, MWMDelegate, Min
     
     public func eegPowerDelta(_ delta: Int32, theta: Int32, lowAlpha: Int32, highAlpha: Int32) {
         sampleInProcess.addDataToSampe(packetName: "eegPowerDelta", reading: [delta, theta, lowAlpha, highAlpha])
+
     }
     
     public func eegPowerLowBeta(_ lowBeta: Int32, highBeta: Int32, lowGamma: Int32, midGamma: Int32) {
